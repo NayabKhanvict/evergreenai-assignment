@@ -3,7 +3,7 @@ import openIcon from '@/assets/open-icon.svg'
 
 export default function ProfileSection() {
   return (
-    <section className="relative order-first flex flex-col bg-profile-bg px-4 pt-12 pb-4 sm:px-6 md:order-last md:w-1/2 md:border-l md:border-divider md:px-8 md:pt-6 md:pb-8">
+    <section className="relative flex flex-col bg-profile-bg px-4 pt-10 pb-4 sm:px-6 md:w-1/2 md:border-l md:border-divider md:px-8 md:pt-6 md:pb-8">
       <div className="absolute top-1/2 left-[-6px] z-10 hidden h-[36px] w-[12px] -translate-y-1/2 rounded-full bg-handle md:block" />
 
       <div className="hidden md:block">
@@ -19,7 +19,7 @@ export default function ProfileSection() {
         <img
           src={billHarrisImg}
           alt="Bill Harris"
-          className="w-full rounded-lg object-cover md:mt-4"
+          className="w-full rounded-xl object-cover md:mt-4 mt-3"
         />
 
         <div className="mt-3 flex items-start gap-2.5 sm:gap-3 md:mt-5 md:gap-3.5">
@@ -37,7 +37,7 @@ export default function ProfileSection() {
             <p className="font-helvetica text-[12px] leading-[17px] font-normal text-text-primary sm:text-[14px] sm:leading-[20px] md:text-[16px] md:leading-[22px]">
               35-year veteran of financial technology startups
             </p>
-            <p className="mt-0.5 font-helvetica text-[10px] leading-[14px] font-extralight tracking-[0px] text-text-secondary sm:text-[12px] sm:leading-[16px] md:text-[13.39px] md:leading-[17.4px]">
+            <p className="mt-0.5 font-helvetica text-[10px] leading-[14px] font-extralight tracking-[0px] text-evergreen-dark sm:text-[12px] sm:leading-[16px] md:pr-[95px] md:text-[13.39px] md:leading-[17.4px]">
               This is my AI replica trained to help answer your questions.
               Outputs are not a substitute for professional advice.
             </p>

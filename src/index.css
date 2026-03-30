@@ -19,6 +19,8 @@
 
   /* ── Chat input ── */
   --color-chat-input-bg: #f7f7f7;
+  --color-chat-input-mobile-bg: #f6f5f1;
+  --color-chat-input-mobile-border: #f7f5f0;
   --color-chat-arrow-bg: #b6b9b7;
   --color-chat-arrow-hover: #a0a3a1;
   --color-placeholder: #8a8a8a;
@@ -34,16 +36,16 @@
   .phone-frame {
     box-shadow:
       0px 0px 82.23px 0px rgba(112, 148, 251, 0.1),
-      0px 32.89px 65.78px 0px rgba(0, 0, 0, 0.6),
-      0px 0px 0px 4.11px #3a3a3c,
-      0px 0px 0px 3.29px #1c1c1e,
-      0px 0px 0px 1.64px #2c2c2e;
+      0px 32.89px 65.78px 0px rgba(0, 0, 0, 0.6);
   }
 
-  @media (min-width: 768px) {
-    .phone-frame {
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    }
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 

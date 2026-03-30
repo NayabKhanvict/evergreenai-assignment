@@ -14,9 +14,14 @@ const MOBILE_QUESTIONS = [
 
 export default function ChatSection() {
   return (
-    <section className="order-last flex flex-1 flex-col items-center justify-between bg-chat-bg px-4 pt-4 pb-6 sm:px-6 md:order-first md:w-1/2 md:px-10 md:py-12">
+    <section className="relative flex flex-1 flex-col items-center justify-between bg-chat-bg px-4 pb-6 sm:px-6 md:w-1/2 md:px-10 md:py-12">
+      {/* Handle pill — mobile only, top of chat section */}
+      <div className="flex w-full items-center justify-center pt-1 pb-3 md:hidden">
+        <div className="h-[5px] w-[40px] rounded-full bg-handle" />
+      </div>
+
       <div className="flex w-full max-w-[520px] flex-1 flex-col items-center justify-center">
-        <h1 className="w-full text-center font-cormorant text-[26px] leading-[34px] font-normal text-text-primary sm:text-[32px] sm:leading-[42px] md:text-[36px] md:leading-[48px]">
+        <h1 className="w-full text-center font-cormorant text-[26px] leading-[34px] font-normal text-notch sm:text-[32px] sm:leading-[42px] md:text-[36px] md:leading-[48px]">
           Ask me any financial question...
         </h1>
 
@@ -26,7 +31,7 @@ export default function ChatSection() {
             <button
               key={question}
               type="button"
-              className="cursor-pointer rounded-full border border-question-border px-4 py-3 font-heebo text-[14px] leading-[20px] font-normal text-text-primary transition-colors hover:bg-gray-50"
+              className="cursor-pointer rounded-full border border-question-border px-4 py-3 font-heebo text-[14px] leading-[20px] font-normal text-beta-text transition-colors hover:bg-gray-50"
             >
               {question}
             </button>
@@ -39,7 +44,7 @@ export default function ChatSection() {
             <button
               key={question}
               type="button"
-              className="cursor-pointer rounded-full border border-question-border px-3.5 py-2.5 font-heebo text-[13px] leading-[18px] font-normal text-text-primary transition-colors hover:bg-gray-50 sm:px-4 sm:py-3 sm:text-[14px] sm:leading-[20px]"
+              className="cursor-pointer rounded-full border border-question-border px-3.5 py-2.5 font-heebo text-[13px] leading-[18px] font-normal text-beta-text transition-colors hover:bg-gray-50 sm:px-4 sm:py-3 sm:text-[14px] sm:leading-[20px]"
             >
               {question}
             </button>
@@ -49,11 +54,11 @@ export default function ChatSection() {
 
       <div className="mt-6 w-full max-w-[520px] md:mt-0">
         {/* Mobile: single-line input */}
-        <div className="flex items-center gap-2 rounded-[27px] bg-chat-input-bg px-4 py-3 md:hidden">
+        <div className="flex items-center gap-2 rounded-[14.8px] border border-chat-input-mobile-border bg-chat-input-mobile-bg px-4 py-3 md:hidden">
           <input
             type="text"
             placeholder="Ask me any financial question..."
-            className="min-w-0 flex-1 bg-transparent font-cormorant text-[15px] leading-[20px] font-normal text-text-primary placeholder-placeholder outline-none"
+            className="min-w-0 flex-1 bg-transparent font-helvetica text-[15px] leading-[20px] font-normal text-text-primary placeholder-placeholder outline-none"
           />
           <button
             type="button"
@@ -81,17 +86,11 @@ export default function ChatSection() {
         </div>
 
         {/* Mobile footer */}
-        <footer className="mt-3 text-center font-heebo text-[11px] leading-[16px] font-normal text-beta-text md:hidden">
+        <footer className="mt-2 text-center font-heebo text-[9px] leading-[14px] font-normal whitespace-nowrap text-beta-text md:hidden">
           <p>
             By messaging evergreen.ai, you agree to our{' '}
-            <a href="#" className="underline">
-              Terms of Use
-            </a>{' '}
-            and{' '}
-            <a href="#" className="underline">
-              Privacy Policy
-            </a>
-            .
+            <a href="#">Terms of Use</a> and{' '}
+            <a href="#">Privacy Policy</a>.
           </p>
         </footer>
 
