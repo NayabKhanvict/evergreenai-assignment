@@ -24,7 +24,7 @@ export default function ProfileSection() {
 
         <div className="mt-3 flex items-start gap-2.5 sm:gap-3 md:mt-5 md:gap-3.5">
           <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-[4px] bg-text-primary sm:h-[50px] sm:w-[50px] sm:rounded-[5px] md:h-[70.29px] md:w-[70.29px]">
-            <span className="font-helvetica text-[20px] leading-none font-light text-white sm:text-[26px] md:text-[32px]">
+            <span className="font-georgia text-[28px] leading-[100%] font-normal tracking-[0px] text-white sm:text-[36px] md:text-[43.51px]">
               e
             </span>
           </div>
