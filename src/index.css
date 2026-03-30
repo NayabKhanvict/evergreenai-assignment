@@ -11,7 +11,6 @@
   --color-page-bg: #0e0e0e;
   --color-chat-bg: #ffffff;
   --color-profile-bg: #f7f7f7;
-  --color-notch: #0e0e0e;
 
   /* ── Borders / dividers ── */
   --color-divider: #d8d8d8;
@@ -33,22 +32,6 @@
   --color-evergreen-dark: #575b58;
 }
 
-@layer components {
-  .phone-frame {
-    box-shadow:
-      0px 0px 82.23px 0px rgba(112, 148, 251, 0.1),
-      0px 32.89px 65.78px 0px rgba(0, 0, 0, 0.6);
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .custom-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-}
 
 @layer base {
   :root {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import upArrowIcon from '@/assets/uparrow-icon.svg'
 
@@ -14,13 +14,29 @@ const MOBILE_QUESTIONS = [
   "What's the best strategy for my 401(k)?",
 ] as const
 
-export default function ChatSection() {
-  const [input, setInput] = useState('')
+interface ChatSectionProps {
+  readonly input: string
+  readonly setInput: (value: string) => void
+}
+
+export default function ChatSection({ input, setInput }: ChatSectionProps) {
+  const [animateInput, setAnimateInput] = useState(false)
   const hasText = input.trim().length > 0
+  const mobileInputRef = useRef<HTMLInputElement>(null)
+  const desktopInputRef = useRef<HTMLTextAreaElement>(null)
 
   const handleQuestionClick = (question: string) => {
-    setInput(question)
+    setAnimateInput(true)
+    setTimeout(() => {
+      setInput(question)
+    }, 250)
+    setTimeout(() => {
+      setAnimateInput(false)
+    }, 600)
   }
+
+  const QUESTION_CLASSES =
+    'cursor-pointer rounded-full border border-question-border font-heebo font-normal text-beta-text transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-gray-100 hover:border-text-secondary hover:scale-[1.03] active:scale-[0.97]'
 
   return (
     <section className="relative flex flex-1 flex-col items-center justify-between bg-chat-bg px-4 pb-6 sm:px-6 md:w-1/2 md:px-10 md:py-12">
@@ -41,7 +57,7 @@ export default function ChatSection() {
               key={question}
               type="button"
               onClick={() => handleQuestionClick(question)}
-              className="cursor-pointer rounded-full border border-question-border px-4 py-3 font-heebo text-[14px] leading-[20px] font-normal text-beta-text transition-colors hover:bg-gray-50"
+              className={`${QUESTION_CLASSES} px-4 py-3 text-[14px] leading-[20px]`}
             >
               {question}
             </button>
@@ -55,7 +71,7 @@ export default function ChatSection() {
               key={question}
               type="button"
               onClick={() => handleQuestionClick(question)}
-              className="cursor-pointer rounded-full border border-question-border px-3.5 py-2.5 font-heebo text-[13px] leading-[18px] font-normal text-beta-text transition-colors hover:bg-gray-50 sm:px-4 sm:py-3 sm:text-[14px] sm:leading-[20px]"
+              className={`${QUESTION_CLASSES} px-3.5 py-2.5 text-[13px] leading-[18px] sm:px-4 sm:py-3 sm:text-[14px] sm:leading-[20px]`}
             >
               {question}
             </button>
@@ -65,8 +81,11 @@ export default function ChatSection() {
 
       <div className="mt-6 w-full max-w-[520px] md:mt-0">
         {/* Mobile: single-line input */}
-        <div className="flex items-center gap-2 rounded-[14.8px] border border-chat-input-mobile-border bg-chat-input-mobile-bg px-4 py-3 md:hidden">
+        <div
+          className={`flex items-center gap-2 rounded-[14.8px] border border-chat-input-mobile-border bg-chat-input-mobile-bg px-4 py-3 transition-shadow duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:hidden ${animateInput ? 'shadow-md' : ''}`}
+        >
           <input
+            ref={mobileInputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -76,15 +95,18 @@ export default function ChatSection() {
           <button
             type="button"
             disabled={!hasText}
-            className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full transition-colors ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
+            className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
           >
             <img src={upArrowIcon} alt="Send" className="h-[15px] w-[6px]" />
           </button>
         </div>
 
         {/* Desktop: multiline textarea */}
-        <div className="relative hidden rounded-[27px] bg-chat-input-bg px-5 pt-5 pb-4 md:block">
+        <div
+          className={`relative hidden rounded-[27px] bg-chat-input-bg px-5 pt-5 pb-4 transition-shadow duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:block ${animateInput ? 'shadow-md' : ''}`}
+        >
           <textarea
+            ref={desktopInputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask me any financial question..."
@@ -95,7 +117,7 @@ export default function ChatSection() {
             <button
               type="button"
               disabled={!hasText}
-              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full transition-colors ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
+              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
             >
               <img src={upArrowIcon} alt="Send" className="h-[19px] w-[8px]" />
             </button>

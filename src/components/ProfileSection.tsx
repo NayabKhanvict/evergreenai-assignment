@@ -3,7 +3,7 @@ import openIcon from '@/assets/open-icon.svg'
 
 export default function ProfileSection() {
   return (
-    <section className="relative flex flex-col bg-profile-bg px-4 pt-10 pb-4 sm:px-6 md:w-1/2 md:border-l md:border-divider md:px-8 md:pt-6 md:pb-8">
+    <section className="relative flex flex-col bg-profile-bg px-4 pt-2 pb-4 sm:px-6 md:w-1/2 md:border-l md:border-divider md:px-8 md:pt-6 md:pb-8">
       <div className="absolute top-1/2 left-[-6px] z-10 hidden h-[36px] w-[12px] -translate-y-1/2 rounded-full bg-handle md:block" />
 
       <div className="hidden md:block">
