@@ -15,11 +15,11 @@ export default function ProfileSection() {
         </button>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[600px] flex-1 flex-col justify-center">
+      <div className="mx-auto flex w-full flex-1 flex-col justify-center">
         <img
           src={billHarrisImg}
           alt="Bill Harris"
-          className="w-full rounded-xl object-cover md:mt-4 mt-3"
+          className="w-full rounded-2xl object-cover md:mt-4 mt-3"
         />
 
         <div className="mt-3 flex items-start gap-2.5 sm:gap-3 md:mt-5 md:gap-3.5">
