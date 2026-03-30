@@ -1,0 +1,118 @@
+import upArrowIcon from '@/assets/uparrow-icon.svg'
+
+const SUGGESTED_QUESTIONS = [
+  "What's a donor-advised fund?",
+  'How can I offset large capital gains?',
+  'Should I rent or buy in today\u2019s market?',
+] as const
+
+const MOBILE_QUESTIONS = [
+  'When should I exercise my RSUs?',
+  'How do I plan for early retirement?',
+  "What's the best strategy for my 401(k)?",
+] as const
+
+export default function ChatSection() {
+  return (
+    <section className="order-last flex flex-1 flex-col items-center justify-between bg-chat-bg px-4 pt-4 pb-6 sm:px-6 md:order-first md:w-1/2 md:px-10 md:py-12">
+      <div className="flex w-full max-w-[520px] flex-1 flex-col items-center justify-center">
+        <h1 className="w-full text-center font-cormorant text-[26px] leading-[34px] font-normal text-text-primary sm:text-[32px] sm:leading-[42px] md:text-[36px] md:leading-[48px]">
+          Ask me any financial question...
+        </h1>
+
+        {/* Desktop questions */}
+        <div className="mt-8 hidden flex-col items-center gap-3 md:flex">
+          {SUGGESTED_QUESTIONS.map((question) => (
+            <button
+              key={question}
+              type="button"
+              className="cursor-pointer rounded-full border border-question-border px-4 py-3 font-heebo text-[14px] leading-[20px] font-normal text-text-primary transition-colors hover:bg-gray-50"
+            >
+              {question}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile questions */}
+        <div className="mt-5 flex flex-col items-center gap-2.5 sm:mt-6 sm:gap-3 md:hidden">
+          {MOBILE_QUESTIONS.map((question) => (
+            <button
+              key={question}
+              type="button"
+              className="cursor-pointer rounded-full border border-question-border px-3.5 py-2.5 font-heebo text-[13px] leading-[18px] font-normal text-text-primary transition-colors hover:bg-gray-50 sm:px-4 sm:py-3 sm:text-[14px] sm:leading-[20px]"
+            >
+              {question}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 w-full max-w-[520px] md:mt-0">
+        {/* Mobile: single-line input */}
+        <div className="flex items-center gap-2 rounded-[27px] bg-chat-input-bg px-4 py-3 md:hidden">
+          <input
+            type="text"
+            placeholder="Ask me any financial question..."
+            className="min-w-0 flex-1 bg-transparent font-cormorant text-[15px] leading-[20px] font-normal text-text-primary placeholder-placeholder outline-none"
+          />
+          <button
+            type="button"
+            className="flex h-[34px] w-[34px] shrink-0 cursor-pointer items-center justify-center rounded-full bg-chat-arrow-bg transition-colors hover:bg-chat-arrow-hover"
+          >
+            <img src={upArrowIcon} alt="Send" className="h-[15px] w-[6px]" />
+          </button>
+        </div>
+
+        {/* Desktop: multiline textarea */}
+        <div className="relative hidden rounded-[27px] bg-chat-input-bg px-5 pt-5 pb-4 md:block">
+          <textarea
+            placeholder="Ask me any financial question..."
+            rows={3}
+            className="w-full resize-none bg-transparent font-heebo text-[16px] leading-[24px] font-normal text-text-primary placeholder-placeholder outline-none"
+          />
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full bg-chat-arrow-bg transition-colors hover:bg-chat-arrow-hover"
+            >
+              <img src={upArrowIcon} alt="Send" className="h-[19px] w-[8px]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile footer */}
+        <footer className="mt-3 text-center font-heebo text-[11px] leading-[16px] font-normal text-beta-text md:hidden">
+          <p>
+            By messaging evergreen.ai, you agree to our{' '}
+            <a href="#" className="underline">
+              Terms of Use
+            </a>{' '}
+            and{' '}
+            <a href="#" className="underline">
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </footer>
+
+        {/* Desktop footer */}
+        <footer className="mt-4 hidden text-center font-heebo text-[14px] leading-[20px] font-normal text-beta-text md:block">
+          <p>
+            BETA Have feedback? Share it above to help us improve.
+          </p>
+          <p>
+            By messaging evergreen.ai, you agree to our{' '}
+            <a href="#" className="underline">
+              Terms of Use
+            </a>{' '}
+            and{' '}
+            <a href="#" className="underline">
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </footer>
+      </div>
+    </section>
+  )
+}
