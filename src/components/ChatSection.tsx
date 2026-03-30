@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import upArrowIcon from '@/assets/uparrow-icon.svg'
 
@@ -21,22 +21,61 @@ interface ChatSectionProps {
 
 export default function ChatSection({ input, setInput }: ChatSectionProps) {
   const [animateInput, setAnimateInput] = useState(false)
+  const [typing, setTyping] = useState(false)
+  const [displayText, setDisplayText] = useState('')
   const hasText = input.trim().length > 0
   const mobileInputRef = useRef<HTMLInputElement>(null)
   const desktopInputRef = useRef<HTMLTextAreaElement>(null)
+  const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const typeText = (text: string) => {
+    setTyping(true)
+    setDisplayText('')
+    let i = 0
+    const speed = Math.max(15, 400 / text.length)
+
+    const tick = () => {
+      i++
+      setDisplayText(text.slice(0, i))
+      if (i < text.length) {
+        typingRef.current = setTimeout(tick, speed)
+      } else {
+        setTyping(false)
+        setInput(text)
+      }
+    }
+    typingRef.current = setTimeout(tick, speed)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (typingRef.current) clearTimeout(typingRef.current)
+    }
+  }, [])
+
+  const shownValue = typing ? displayText : input
 
   const handleQuestionClick = (question: string) => {
+    if (typingRef.current) clearTimeout(typingRef.current)
     setAnimateInput(true)
     setTimeout(() => {
-      setInput(question)
-    }, 250)
+      typeText(question)
+    }, 200)
     setTimeout(() => {
       setAnimateInput(false)
-    }, 600)
+    }, 500)
+  }
+
+  const handleChange = (value: string) => {
+    if (typingRef.current) {
+      clearTimeout(typingRef.current)
+      setTyping(false)
+    }
+    setInput(value)
   }
 
   const QUESTION_CLASSES =
-    'cursor-pointer rounded-full border border-question-border font-heebo font-normal text-beta-text transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-gray-100 hover:border-text-secondary hover:scale-[1.03] active:scale-[0.97]'
+    'group cursor-pointer rounded-full border border-question-border font-heebo font-normal text-beta-text transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] hover:bg-[#f0efeb] hover:border-[#575B58] hover:text-text-primary hover:shadow-sm hover:scale-[1.03] active:scale-[0.97]'
 
   return (
     <section className="relative flex flex-1 flex-col items-center justify-between bg-chat-bg px-4 pb-6 sm:px-6 md:w-1/2 md:px-10 md:py-12">
@@ -87,15 +126,15 @@ export default function ChatSection({ input, setInput }: ChatSectionProps) {
           <input
             ref={mobileInputRef}
             type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={shownValue}
+            onChange={(e) => handleChange(e.target.value)}
             placeholder="Ask me any financial question..."
             className="min-w-0 flex-1 bg-transparent font-helvetica text-[15px] leading-[20px] font-normal text-text-primary placeholder-placeholder outline-none"
           />
           <button
             type="button"
             disabled={!hasText}
-            className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
+            className={`flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black hover:scale-110' : 'cursor-default bg-chat-arrow-bg'}`}
           >
             <img src={upArrowIcon} alt="Send" className="h-[15px] w-[6px]" />
           </button>
@@ -107,8 +146,8 @@ export default function ChatSection({ input, setInput }: ChatSectionProps) {
         >
           <textarea
             ref={desktopInputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={shownValue}
+            onChange={(e) => handleChange(e.target.value)}
             placeholder="Ask me any financial question..."
             rows={3}
             className="w-full resize-none bg-transparent font-heebo text-[16px] leading-[24px] font-normal text-text-primary placeholder-placeholder outline-none"
@@ -117,7 +156,7 @@ export default function ChatSection({ input, setInput }: ChatSectionProps) {
             <button
               type="button"
               disabled={!hasText}
-              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black' : 'cursor-default bg-chat-arrow-bg'}`}
+              className={`flex h-[38px] w-[38px] items-center justify-center rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${hasText ? 'cursor-pointer bg-text-primary hover:bg-black hover:scale-110' : 'cursor-default bg-chat-arrow-bg'}`}
             >
               <img src={upArrowIcon} alt="Send" className="h-[19px] w-[8px]" />
             </button>
